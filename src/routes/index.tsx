@@ -118,7 +118,7 @@ function Home() {
             {[...ticker, ...ticker].map(([k, v], i) => (
               <span key={i} className="flex items-center gap-2">
                 <span className="text-primary-foreground/60">{k}</span>
-                <span className={v.startsWith("-") ? "text-destructive" : "text-success"}>{v}</span>
+                <span className={v?.startsWith("-") ? "text-destructive" : "text-success"}>{v}</span>
               </span>
             ))}
           </div>
@@ -256,8 +256,9 @@ function Calculator() {
             </div>
             {result && (
               <div className="mt-6 flex h-28 items-end gap-1" aria-hidden>
-                {Array.from({ length: Math.min(30, Math.max(1, Number(years) || 1)) }, (_, k, arr) => {
-                  const n = ((k + 1) / arr.length) * Number(years);
+                {Array.from({ length: Math.min(30, Math.max(1, Number(years) || 1)) }, (_: unknown, k: number) => {
+                  const len = Math.min(30, Math.max(1, Number(years) || 1));
+                  const n = ((k + 1) / len) * Number(years);
                   const r = Number(rate) / 100;
                   const h = (Math.pow(1 + r, n) / Math.pow(1 + r, Number(years))) * 100;
                   return <div key={k} className="flex-1 rounded-t bg-primary/80 transition-all duration-500" style={{ height: `${Math.max(4, h)}%` }} />;
