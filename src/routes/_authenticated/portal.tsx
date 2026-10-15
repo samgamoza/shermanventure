@@ -90,8 +90,8 @@ function Portal() {
     <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 md:py-16">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow text-silver">Client portal</p>
-          <h1 className="mt-2 text-4xl font-semibold text-primary sm:text-5xl">Welcome{profile.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}</h1>
+          <p className="type-kicker">Client portal</p>
+          <h1 className="type-headline mt-2 text-primary">Welcome{profile.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}</h1>
         </div>
         <Button variant="outline" onClick={signOut}><LogOut /> Sign out</Button>
       </div>

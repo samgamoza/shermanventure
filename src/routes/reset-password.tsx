@@ -36,7 +36,7 @@ function Reset() {
   return (
     <section className="bg-secondary px-5 py-16 sm:py-24">
       <form onSubmit={submit} className="mx-auto grid max-w-md gap-4 rounded-2xl border bg-card p-8 shadow-lift">
-        <h1 className="text-4xl font-semibold text-primary">Set a new password</h1>
+        <h1 className="type-title text-primary">Set a new password</h1>
         <div className="grid gap-2"><Label htmlFor="np">New password</Label><Input id="np" type="password" autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} /></div>
         <Button type="submit" disabled={busy}>Update password</Button>
       </form>

@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -11,8 +12,9 @@ import { Label } from "@/components/ui/label";
 type Mode = "signin" | "signup" | "forgot";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode?: Mode | undefined } => ({
+  validateSearch: (s: Record<string, unknown>): { mode?: Mode | undefined; email?: string | undefined } => ({
     mode: s["mode"] === "signup" || s["mode"] === "forgot" ? (s["mode"] as Mode) : undefined,
+    email: typeof s["email"] === "string" && s["email"].length <= 255 ? s["email"] : undefined,
   }),
   head: () => ({
     meta: [
@@ -32,7 +34,7 @@ const passS = z.string().min(8, "At least 8 characters").max(72);
 function AuthPage() {
   const search = Route.useSearch();
   const [mode, setMode] = useState<Mode>(search.mode ?? "signin");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(search.email ?? "");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [agree, setAgree] = useState(false);
@@ -92,13 +94,26 @@ function AuthPage() {
   const title = mode === "signup" ? "Open an account" : mode === "forgot" ? "Reset your password" : "Welcome back";
 
   return (
-    <section className="bg-secondary px-5 py-16 sm:py-24">
-      <div className="mx-auto max-w-md rounded-2xl border bg-card p-7 shadow-lift sm:p-10 animate-in fade-in slide-in-from-bottom-4">
-        <h1 className="text-4xl font-semibold text-primary">{title}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Secure access to your Sherman Ventures client portal.</p>
+    <section className="grid min-h-[70vh] lg:grid-cols-[1fr_1.1fr]">
+      <div className="relative hidden overflow-hidden bg-ink-gradient p-12 text-ink-foreground lg:flex lg:flex-col lg:justify-between">
+        <div className="bg-dots-light absolute inset-0" aria-hidden />
+        <div className="relative">
+          <p className="type-kicker text-brand-soft">Client portal</p>
+          <h2 className="type-headline mt-3 max-w-md">Every account, report and conversation in one secure place.</h2>
+        </div>
+        <ul className="relative grid max-w-sm gap-4 text-sm text-ink-foreground/80">
+          {["Encrypted in transit and at rest", "You only ever see your own records", "Export or delete your data yourself, any time"].map((t) => (
+            <li key={t} className="flex gap-3"><ShieldCheck className="mt-0.5 size-4 shrink-0 text-brand-soft" />{t}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex items-center justify-center px-5 py-16 sm:py-24">
+      <div className="w-full max-w-md animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <h1 className="type-headline text-primary">{title}</h1>
+        <p className="mt-3 text-muted-foreground">Secure access to your Sherman Ventures client portal.</p>
         {mode !== "forgot" && (
           <>
-            <Button type="button" variant="outline" className="mt-6 w-full" onClick={google}>Continue with Google</Button>
+            <Button type="button" variant="outline" size="lg" className="mt-8 w-full" onClick={google}>Continue with Google</Button>
             <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
           </>
         )}
@@ -116,7 +131,7 @@ function AuthPage() {
               {err.agree && <p className="text-sm text-destructive">{err.agree}</p>}
             </div>
           )}
-          <Button type="submit" size="lg" disabled={busy}>{busy ? "Please wait…" : mode === "signup" ? "Create account" : mode === "forgot" ? "Send reset link" : "Sign in"}</Button>
+          <Button type="submit" variant="brand" size="lg" disabled={busy}>{busy ? "Please wait…" : mode === "signup" ? "Create account" : mode === "forgot" ? "Send reset link" : "Sign in"}</Button>
         </form>
         <div className="mt-6 flex flex-wrap justify-between gap-2 text-sm">
           {mode === "signin" ? (
@@ -128,6 +143,7 @@ function AuthPage() {
             <button className="text-primary hover:underline" onClick={() => setMode("signin")}>Back to sign in</button>
           )}
         </div>
+      </div>
       </div>
     </section>
   );

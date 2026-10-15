@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -27,6 +27,9 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
   --color-silver: var(--silver);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
@@ -46,39 +49,46 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/*
+  Sherman Ventures design tokens.
+  Navy and silver come from the SV monogram; the single warm accent (brand)
+  is reserved for primary actions so it always means "do this".
+*/
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.985 0.004 250);
-  --foreground: oklch(0.22 0.05 262);
+  --radius: 0.75rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.21 0.055 265);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.05 262);
+  --card-foreground: oklch(0.21 0.055 265);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.05 262);
-  --primary: oklch(0.33 0.11 263);
-  --primary-foreground: oklch(0.98 0.005 250);
-  --primary-deep: oklch(0.2 0.07 263);
-  --secondary: oklch(0.95 0.01 255);
-  --secondary-foreground: oklch(0.3 0.08 263);
-  --muted: oklch(0.955 0.008 255);
-  --muted-foreground: oklch(0.5 0.025 260);
-  --accent: oklch(0.93 0.015 255);
-  --accent-foreground: oklch(0.3 0.1 263);
-  --silver: oklch(0.68 0.012 260);
+  --popover-foreground: oklch(0.21 0.055 265);
+  --primary: oklch(0.31 0.1 265);
+  --primary-foreground: oklch(0.99 0.002 250);
+  --primary-deep: oklch(0.2 0.07 265);
+  --secondary: oklch(0.97 0.006 255);
+  --secondary-foreground: oklch(0.28 0.08 265);
+  --muted: oklch(0.965 0.006 255);
+  --muted-foreground: oklch(0.49 0.025 262);
+  --accent: oklch(0.94 0.012 255);
+  --accent-foreground: oklch(0.28 0.09 265);
+  --brand: oklch(0.66 0.21 40);
+  --brand-foreground: oklch(0.99 0.002 250);
+  --brand-soft: oklch(0.95 0.035 45);
+  --silver: oklch(0.66 0.012 260);
   --destructive: oklch(0.577 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
   --success: oklch(0.6 0.13 155);
-  --border: oklch(0.9 0.012 255);
-  --input: oklch(0.88 0.015 255);
-  --ring: oklch(0.45 0.12 263);
-  --ink: oklch(0.17 0.05 263);
-  --ink-foreground: oklch(0.96 0.008 250);
-  --gradient-hero: linear-gradient(110deg, oklch(0.15 0.06 263 / 0.95) 0%, oklch(0.2 0.08 263 / 0.82) 45%, oklch(0.2 0.08 263 / 0.35) 100%);
-  --gradient-ink: linear-gradient(160deg, oklch(0.24 0.09 263), oklch(0.15 0.05 263));
-  --shadow-card: 0 1px 2px oklch(0.2 0.05 263 / 0.04), 0 12px 32px -12px oklch(0.2 0.07 263 / 0.18);
-  --shadow-lift: 0 24px 48px -16px oklch(0.2 0.08 263 / 0.3);
+  --border: oklch(0.91 0.01 255);
+  --input: oklch(0.88 0.012 255);
+  --ring: oklch(0.45 0.12 265);
+  --ink: oklch(0.17 0.05 265);
+  --ink-foreground: oklch(0.97 0.006 250);
+  --gradient-ink: linear-gradient(160deg, oklch(0.25 0.09 265), oklch(0.15 0.055 265));
+  --shadow-card: 0 1px 2px oklch(0.2 0.05 265 / 0.05), 0 10px 30px -14px oklch(0.2 0.07 265 / 0.16);
+  --shadow-lift: 0 30px 60px -24px oklch(0.2 0.08 265 / 0.35), 0 2px 6px oklch(0.2 0.05 265 / 0.06);
   --sidebar: oklch(0.98 0.004 250);
   --sidebar-foreground: oklch(0.22 0.05 262);
-  --sidebar-primary: oklch(0.33 0.11 263);
+  --sidebar-primary: oklch(0.31 0.1 265);
   --sidebar-primary-foreground: oklch(0.98 0 0);
   --sidebar-accent: oklch(0.95 0.01 255);
   --sidebar-accent-foreground: oklch(0.3 0.08 263);
@@ -94,50 +104,62 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
   }
-  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.025em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--brand-soft); color: var(--primary-deep); }
 }
 
-@utility bg-hero { background-image: var(--gradient-hero); }
+/* Type scale — one family, hierarchy carried by size, weight and tracking. */
+@utility type-display { font-size: clamp(2.75rem, 6vw, 4.75rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.035em; }
+@utility type-headline { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.08; font-weight: 700; letter-spacing: -0.03em; }
+@utility type-title { font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.18; font-weight: 700; letter-spacing: -0.02em; }
+@utility type-lead { font-size: clamp(1.0625rem, 1.4vw, 1.25rem); line-height: 1.55; color: var(--muted-foreground); }
+@utility type-kicker { font-size: 0.875rem; font-weight: 600; color: var(--brand); }
+
 @utility bg-ink-gradient { background-image: var(--gradient-ink); }
 @utility shadow-card { box-shadow: var(--shadow-card); }
 @utility shadow-lift { box-shadow: var(--shadow-lift); }
-@utility eyebrow {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+@utility container-x { margin-inline: auto; max-width: 80rem; padding-inline: 1.25rem; }
+@media (min-width: 640px) { .container-x { padding-inline: 2rem; } }
+
+/* Fine dotted grid used behind product panels, fades to the edges. */
+@utility bg-dots {
+  background-image: radial-gradient(oklch(0.3 0.08 265 / 0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 78%);
+}
+@utility bg-dots-light {
+  background-image: radial-gradient(oklch(1 0 0 / 0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 75%);
 }
 
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1); }
+/* Reveal on scroll — one gentle lift, used for section entrances only. */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1); }
 .reveal.is-visible { opacity: 1; transform: none; }
-@keyframes hero-in { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-.animate-hero { animation: hero-in 1s cubic-bezier(.2,.7,.2,1) both; }
-@keyframes slow-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
-.animate-slow-zoom { animation: slow-zoom 14s ease-out both; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .animate-hero, .animate-slow-zoom { animation: none; opacity: 1; transform: none; transition: none; }
-}
-
-@utility glass {
-  background: oklch(1 0 0 / 0.07);
-  border: 1px solid oklch(1 0 0 / 0.14);
-  backdrop-filter: blur(18px) saturate(140%);
-}
-@utility bg-grid {
-  background-image: linear-gradient(oklch(1 0 0 / 0.05) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0 / 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at 30% 40%, black 30%, transparent 75%);
-}
-@utility text-gradient {
-  background: linear-gradient(100deg, var(--primary-foreground) 20%, var(--silver) 90%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-@utility ring-glow { box-shadow: 0 0 0 1px oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0.45 0.15 263 / 0.6); }
+@keyframes hero-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.animate-hero { animation: hero-in 0.8s cubic-bezier(.2,.7,.2,1) both; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.animate-marquee { animation: marquee 40s linear infinite; }
-@keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.animate-float { animation: float-y 6s ease-in-out infinite; }
+.animate-marquee { animation: marquee 48s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.animate-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.8s cubic-bezier(.4,0,.2,1) 0.3s both; }
 @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 .animate-pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .animate-marquee, .animate-float, .animate-pulse-dot { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .animate-hero { animation: none; opacity: 1; transform: none; transition: none; }
+  .animate-marquee, .animate-draw, .animate-pulse-dot { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Underline that grows from the left on hover — for text links in nav and cards. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.3s cubic-bezier(.2,.7,.2,1);
+}
+.link-underline:hover, .group:hover .link-underline { background-size: 100% 1px; }

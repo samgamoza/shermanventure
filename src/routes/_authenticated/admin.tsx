@@ -71,8 +71,8 @@ function Admin() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
-      <p className="eyebrow text-silver">Admin</p>
-      <h1 className="mt-2 text-4xl font-semibold text-primary sm:text-5xl">Inbox</h1>
+      <p className="type-kicker">Admin</p>
+      <h1 className="type-headline mt-2 text-primary">Inbox</h1>
       <p className="mt-2 text-muted-foreground">{counts.total} messages · {counts.new} new</p>
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -103,7 +103,7 @@ function Admin() {
         <div className="rounded-xl border bg-card p-6 shadow-card sm:p-8">
           {sel ? (
             <article className="animate-in fade-in">
-              <h2 className="text-3xl font-semibold">{sel.subject}</h2>
+              <h2 className="type-title">{sel.subject}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{sel.name} · <a className="text-primary underline" href={`mailto:${sel.email}`}>{sel.email}</a>{sel.phone ? ` · ${sel.phone}` : ""}</p>
               <p className="text-xs text-muted-foreground">{new Date(sel.created_at).toLocaleString()}</p>
               <p className="mt-6 whitespace-pre-wrap leading-relaxed">{sel.message}</p>
