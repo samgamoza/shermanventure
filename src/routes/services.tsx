@@ -78,7 +78,7 @@ function Services() {
         }
       />
 
-      <nav aria-label="Services on this page" className="sticky top-20 z-30 border-b bg-background/95 backdrop-blur md:top-24">
+      <nav aria-label="Services on this page" className="sticky top-18 z-30 border-b bg-background/95 backdrop-blur md:top-20">
         <div className="container-x flex gap-1 overflow-x-auto py-2">
           {services.map((s) => (
             <a key={s.id} href={`#${s.id}`} className="shrink-0 rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary">{s.title}</a>

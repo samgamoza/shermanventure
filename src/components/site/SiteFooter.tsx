@@ -35,7 +35,7 @@ export function SiteFooter() {
     <footer className="border-t bg-background">
       <div className="container-x grid gap-12 py-16 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div>
-          <img src={logo} alt="Sherman Ventures LLC" className="h-12 w-auto" width={176} height={60} loading="lazy" />
+          <img src={logo} alt="Sherman Ventures LLC" className="h-9 w-auto" width={135} height={36} loading="lazy" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
             Investment guidance for individuals, families and businesses who want their capital to work harder, with less noise.
           </p>

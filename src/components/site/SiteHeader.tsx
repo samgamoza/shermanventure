@@ -38,9 +38,9 @@ export function SiteHeader() {
         scrolled ? "border-b border-border shadow-[0_1px_0_0_var(--border),0_12px_32px_-24px_oklch(0.2_0.07_265/0.35)]" : "border-b border-transparent",
       )}
     >
-      <div className="container-x flex h-20 items-center justify-between gap-6 md:h-24">
+      <div className="container-x flex h-18 items-center justify-between gap-6 md:h-20">
         <Link to="/" aria-label="Sherman Ventures LLC home" className="shrink-0" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Sherman Ventures LLC" className="h-12 w-auto sm:h-14 md:h-16" width={235} height={80} fetchPriority="high" />
+          <img src={logo} alt="Sherman Ventures LLC" className="h-9 w-auto sm:h-10 md:h-11" width={165} height={44} fetchPriority="high" />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
@@ -100,7 +100,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div id="mobile-nav" className="animate-in fade-in slide-in-from-top-2 fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto border-t bg-background px-5 pb-8 duration-200 lg:hidden">
+        <div id="mobile-nav" className="animate-in fade-in slide-in-from-top-2 fixed inset-x-0 top-18 bottom-0 z-40 overflow-y-auto border-t bg-background px-5 pb-8 duration-200 lg:hidden">
           <nav aria-label="Mobile" className="flex flex-col py-2">
             {[{ to: "/", label: "Home" } as const, ...nav].map((n) => (
               <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="border-b py-4 text-lg font-semibold text-foreground">
