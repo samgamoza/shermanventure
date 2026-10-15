@@ -11,8 +11,8 @@ import { Label } from "@/components/ui/label";
 type Mode = "signin" | "signup" | "forgot";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>): { mode?: Mode } => ({
-    mode: s.mode === "signup" || s.mode === "forgot" ? s.mode : undefined,
+  validateSearch: (s: Record<string, unknown>): { mode?: Mode | undefined } => ({
+    mode: s["mode"] === "signup" || s["mode"] === "forgot" ? (s["mode"] as Mode) : undefined,
   }),
   head: () => ({
     meta: [
@@ -37,17 +37,17 @@ function AuthPage() {
   const [name, setName] = useState("");
   const [agree, setAgree] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState<Record<string, string>>({});
+  const [err, setErr] = useState<Partial<Record<"name" | "email" | "password" | "agree", string>>>({});
   const navigate = useNavigate();
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const errs: Record<string, string> = {};
+    const errs: Partial<Record<"name" | "email" | "password" | "agree", string>> = {};
     const em = emailS.safeParse(email);
-    if (!em.success) errs.email = em.error.issues[0].message;
+    if (!em.success) errs.email = em.error.issues[0]?.message ?? "Invalid";
     if (mode !== "forgot") {
       const pw = passS.safeParse(password);
-      if (!pw.success) errs.password = pw.error.issues[0].message;
+      if (!pw.success) errs.password = pw.error.issues[0]?.message ?? "Invalid";
     }
     if (mode === "signup") {
       if (name.trim().length < 2) errs.name = "Enter your full name";
